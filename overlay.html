@@ -1,0 +1,106 @@
+<!doctype>
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<style>
+			* {
+				font-family: "Helvetica";
+			}
+			img {
+				max-width: 900px;
+				max-height: 900px;
+			}
+
+			.container {
+				position: relative;
+				margin-top: 150px;
+			}
+
+			.overlay {
+				position: absolute;
+				width: 600px;
+				background-color: rgba(251, 239, 53, 0.85);
+				top: 0;
+				transform-origin: left;
+				font-size: 25px;
+				padding: 10px;
+				text-align: center;
+				box-shadow: 4px 4px 2px rgba(0, 0, 0, .5);
+			}
+
+			.overlay-top-left {
+				transform: translate(-83px, 334px) rotate(-45deg);
+			}
+
+			.overlay-top-left-lengthened {
+				transform: translate(-88px, 204px) rotate(-25deg);
+			}
+
+			.overlay-top-right-lengthened {
+				transform: translate(432px, -56px) rotate(25deg);
+			}
+
+			.overlay-top-right {
+				transform: translate(535px, -100px) rotate(45deg);
+			}
+
+			.overlay-top {
+				transform: none;
+				width: 900px;
+			}
+
+			.overlay-top-upright {
+				transform: none;
+				width: 675px;
+			}
+
+			.overlay-bottom {
+				transform: none;
+				width: 900px;
+				top: inherit;
+				bottom: 0;
+			}
+
+			.overlay-bottom-upright {
+				transform: none;
+				width: 675px;
+				top: inherit;
+				bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			const items = [
+				['Image1.jpg', 'top-left', 25],
+				['Image2.jpg', 'top-right', 50]
+			];
+
+			items.forEach(([file, overlayStyle = 1, value = 999, startBid]) => {
+				if (!startBid) {
+					startBid = Math.round(value * 0.75);
+				}
+				const markup = `
+					<div class="container">
+						<img src="img/${file}" />
+						<div class="overlay overlay-${overlayStyle}">
+							Value: $${value}; Starting Bid: $${startBid}
+						</div>
+					</div>		
+				`;
+				$('body').append(markup);
+			});
+
+			console.log('Total Value:', items.reduce((accum, curr) => {
+				return accum + curr[2];
+			}, 0));
+		</script>
+
+		<div class="container">
+			<img src="img/Image3.jpg" />
+			<div class="overlay overlay-top-right">
+				Some Hardcoded Text
+			</div>
+		</div>
+	</body>
+</html>
